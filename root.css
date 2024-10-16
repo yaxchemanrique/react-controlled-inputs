@@ -56,6 +56,21 @@ img {
   max-width: 100%;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin-block: 1em 0.5em;
+  width: fit-content;
+}
+
+h2 {
+  background-color: black;
+  color: white;
+  padding: 0.1rem 0.4rem;
+}
+
+h3, h4, h5, h6 {
+  border-bottom: 2px solid black;
+}
+
 a {
   color: inherit;
 }

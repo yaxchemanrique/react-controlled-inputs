@@ -22,12 +22,12 @@ Seguramente estás pensado:
 [comment]: <> (Incluir algo como un warning o algo asi 'container' ⬇️)
 
 <Callout type='info'>
-**Pero, y en React?** Me han dicho que no debo usar querySelector (dentro de lo posible)…
-Y como le hago para “cachar” el evento  <CodeLine>onSubmit</CodeLine>. Y en donde se supone que lo guarde? En una variable así nada más? 
+**Pero, y en React?** Me han dicho que no debo usar <CodeLine>querySelector</CodeLine> (dentro de lo posible)…
+Y como le hago para “cachar” el evento <CodeLine>onSubmit</CodeLine>. ¿Y en dónde se supone que lo guarde? ¿En una variable así nada más? 
 </Callout>
 
 Aquí es donde es util el hook <CodeLine>useState()</CodeLine>. De tal manera que cada vez que cambie el valor de un input se actualice la variable del estado correspondiente.
-A esto se le llama tener un input controlado (controlado por React).
+A esto se le llama tener un **input controlado** (controlado por React).
 
 Por definicion, un input controlado es aquel cuyo valor siempre está vinculado (o "bindeado", si te gusta el spanglish) a una variable de estado en React. Es como tener una cuerda que conecta lo que el usuario escribe con nuestro código, y cada vez que el input cambia, la variable de estado se actualiza.
 
