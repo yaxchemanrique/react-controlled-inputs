@@ -2,7 +2,8 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   border: none;
-  border-radius: 1rem;;
+  border-radius: 1rem;
+  margin-block: 1rem 1.5rem;
 }
 
 .iframe {
