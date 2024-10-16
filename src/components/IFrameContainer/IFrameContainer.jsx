@@ -2,7 +2,7 @@ import styles from "./IFrameContainer.module.css";
 
 function IFrameContainer({ height='auto', srcCode, title }) {
   return (
-    <div className={styles.iframeContainer}>
+    <div>
       <iframe
       className={styles.iframe}
       style={{height: height}}

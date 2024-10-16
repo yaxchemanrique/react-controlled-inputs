@@ -4,9 +4,7 @@
   border: none;
   border-radius: 1rem;
   margin-block: 1rem 1.5rem;
-}
-
-.iframe {
+  box-shadow: var(--shadow-elevation-high);
   zoom: 0.75;
   -moz-transform: scale(0.75);
   -moz-transform-origin: 0 0;

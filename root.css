@@ -8,8 +8,27 @@
   --clr-accent-100-30: hsl(257 100% 96% / 30%);
   --clr-accent-100-0: hsl(257 100% 96% / 0%);
   --clr-accent-400-100: hsla(260 82% 77% / 100%);
-  /* --clr-accent-400-100: #6862743e; */
   --clr-accent-950-100: hsl(0 0% 0% / 100%);
+
+  --shadow-color: 257deg 28% 78%;
+  --shadow-elevation-low:
+    0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.17),
+    0.4px 0.7px 0.9px -1.2px hsl(var(--shadow-color) / 0.17),
+    0.8px 1.5px 1.9px -2.5px hsl(var(--shadow-color) / 0.17);
+  --shadow-elevation-medium:
+    0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.18),
+    0.7px 1.3px 1.7px -0.8px hsl(var(--shadow-color) / 0.18),
+    1.6px 3.2px 4px -1.7px hsl(var(--shadow-color) / 0.18),
+    3.8px 7.6px 9.6px -2.5px hsl(var(--shadow-color) / 0.18);
+  --shadow-elevation-high:
+    0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.17),
+    0.9px 1.7px 2.2px -0.4px hsl(var(--shadow-color) / 0.17),
+    1.5px 3px 3.8px -0.7px hsl(var(--shadow-color) / 0.17),
+    2.4px 4.8px 6px -1.1px hsl(var(--shadow-color) / 0.17),
+    3.7px 7.5px 9.4px -1.4px hsl(var(--shadow-color) / 0.17),
+    5.8px 11.5px 14.5px -1.8px hsl(var(--shadow-color) / 0.17),
+    8.7px 17.4px 21.9px -2.1px hsl(var(--shadow-color) / 0.17),
+    12.8px 25.5px 32.1px -2.5px hsl(var(--shadow-color) / 0.17);
 
   --sh-identifier: #E8E8E8;
   --sh-keyword: #F4BDFF;

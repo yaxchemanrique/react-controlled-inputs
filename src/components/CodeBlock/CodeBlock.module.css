@@ -4,6 +4,7 @@
   border-radius: 1rem;
   width: fit-content;
   margin-block: 1rem 1.5rem;
+  box-shadow: var(--shadow-elevation-high);
 }
 
 .codeBlock code {
