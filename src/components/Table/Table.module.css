@@ -1,0 +1,18 @@
+.table thead{
+  background-color: var(--clr-accent-100-50);
+  text-align: left;
+}
+
+.table th {
+  padding-block: 0.5rem;
+  padding-inline: 0.5rem;
+}
+
+.table tbody tr:nth-of-type(2n) {
+  background-color: hsl(0, 0%, 97%);
+}
+
+.table tbody td {
+  padding-inline: 0.6rem;
+  padding-block: 0.7rem;
+}

@@ -1,7 +1,7 @@
 import CodeBlock from './components/CodeBlock/CodeBlock.jsx'
 import CodeLine from './components/CodeLine/CodeLine.jsx'
 import Callout from './components/Callout/Callout.jsx'
-import Table from './components/Table.jsx'
+import Table from './components/Table/Table.jsx'
 import IFrameContainer from './components/IFrameContainer/IFrameContainer.jsx'
 
 Qué pasa si quieres agregar una validación instantánea en tus inputs? O si quieres guardar los valores de los inputs en una variable?
@@ -221,7 +221,7 @@ Para la segunda parte de la vinculacion necesitamos actualizar los inputs con el
 Disectemos todos los aributos que se usaron:
 
 <Table data={[
-    ["atributo", "tipo", ""],
+    ["atributo", "tipo", "descripción"],
     [<CodeLine>{"id"}</CodeLine>, "String", "Un identificador unico para cada radio. Se usa para mejorar la accesibilidad y la usabilidad."],
     [<CodeLine>{"name"}</CodeLine>, "String", "Un identificador del grupo de radios. Esto nos permite que el usuario solo seleccione unicamente un radio dentro del conjunto. Cada radio dentro del mismo conjunto deberá tener el mismo valor para este atributo."],
     [<CodeLine>{"value"}</CodeLine>, "String", "Especifica el valor ques este radio representa. Esto es lo que estará guardado en el estado si este radio es seleccionado."],
@@ -355,7 +355,7 @@ En la funcion ejecutada por el evento <CodeLine>{'onChange'}</CodeLine>, el valo
 Desglocemos cada uno de los atributos necesarios:
 
 <Table data={[
-    ["atributo", "tipo", ""],
+    ["atributo", "tipo", "descripción"],
     [<CodeLine>{"id"}</CodeLine>, "String", "Un identificador unico para cada checkbox. Se usa para mejorar la accesibilidad y la usabilidad."],
     [<CodeLine>{"value"}</CodeLine>, "String", "Especifica el valor ques este checkbox representa."],
     [<CodeLine>{"checked"}</CodeLine>, "Boolean", "Controla si el checkbox está o no seleccionado. Se evalua si la llave que coincide con el value tiene un valor de <code>true</code> o <code>false</code>."],
