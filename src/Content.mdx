@@ -1,5 +1,6 @@
 import CodeBlock from './components/CodeBlock/CodeBlock.jsx'
 import CodeLine from './components/CodeLine/CodeLine.jsx'
+import Callout from './components/Callout/Callout.jsx'
 import Table from './components/Table.jsx'
 
 Qué pasa si quieres agregar una validación instantánea en tus inputs? O si quieres guardar los valores de los inputs en una variable?
@@ -20,8 +21,10 @@ Seguramente estás pensado:
 
 [comment]: <> (Incluir algo como un warning o algo asi 'container' ⬇️)
 
-Pero, y en React? Me han dicho que no debo usar querySelector (dentro de lo posible)…
-Y como le hago para “cachar” el evento  <CodeLine>onSubmit</CodeLine>. Y en donde se supone que lo guarde? En una variable así nomás? 
+<Callout type='info'>
+**Pero, y en React?** Me han dicho que no debo usar querySelector (dentro de lo posible)…
+Y como le hago para “cachar” el evento  <CodeLine>onSubmit</CodeLine>. Y en donde se supone que lo guarde? En una variable así nada más? 
+</Callout>
 
 Aquí es donde es util el hook <CodeLine>useState()</CodeLine>. De tal manera que cada vez que cambie el valor de un input se actualice la variable del estado correspondiente.
 A esto se le llama tener un input controlado (controlado por React).
@@ -44,8 +47,6 @@ Por defecto, React unicamente crea el elemento<CodeLine>{'<input />'}</CodeLine>
 
 Alternativamente, podémos escoger que React controle el valor del input a traves de la propiedad <CodeLine>{'value'}</CodeLine>:
 
-[comment]: <> (iframe de este input)
-
 IFRAME
 
 <CodeBlock>
@@ -64,7 +65,9 @@ De hecho, al hacer esto, recibimos un warning en la consola:
 
 [comment]: <> (Incluir algo como un warning o algo asi 'container' ⬇️)
 
-Warning: You provided a {'`value`'} prop to a form field without an {'`onChange`'} handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either {'`onChange`'} or {'`readOnly`'}.
+<Callout type='warning'>
+{"Warning: You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly`."}
+</Callout>
 
 Parte de la funcionalidad regresa al pasar un valor dinámico como valor al atributo <CodeLine>{'value'}</CodeLine>:
 
@@ -103,9 +106,12 @@ Para completar este vinculacion de datos (data-binding) de manera bidireccional 
 
 Así, cada vez que el ususario cambie el valor del input se actualiza el valor de la variable name usando su función <CodeLine>{'setName'}</CodeLine>.
 
-¿Qué? ¿De donde salió ese <CodeLine>{'event.target.value'}</CodeLine>?
+<Callout type='info'>
+  **¿Qué? ¿De donde salió ese <CodeLine>{'event.target.value'}</CodeLine>?**
 
-<CodeLine>{'event.target'}</CodeLine> es el nodo del DOM que ha disparado el evento. En este caso el evento es haber cambiado el valor en el input y el target sería el input que estamos cambiando. Y este input tiene un atributo llamado <CodeLine>{'value'}</CodeLine>, el cual hace referencia al valor que el usuario ha escrito en él.
+  <CodeLine>{'event.target'}</CodeLine> es el nodo del DOM que ha disparado el evento. En este caso el evento es haber cambiado el valor en el input y el target sería el input que estamos cambiando. Y este input tiene un atributo llamado <CodeLine>{'value'}</CodeLine>, el cual hace referencia al valor que el usuario ha escrito en él.
+</Callout>
+
 
 Y con esto hemos logado tener una vinculacion bidireccional. Cada vez que cambia el valor del input actualizamos el estado y cada vez que cambia el estado, lo leemos en el atributo value
 
@@ -161,9 +167,9 @@ Por ejemplo para un número telefonico:
 
 Es posible que en algún momento te encuentres con este error en la consola:
 
-WARNING!
-
-⚠️ Warning: A component is changing an uncontrolled input of type text to be controlled. Input elements should not switch from uncontrolled to controlled (or vice versa). Decide between using a controlled or uncontrolled input element for the lifetime of the component.
+<Callout type='warning'>
+  **Warning:** A component is changing an uncontrolled input of type text to be controlled. Input elements should not switch from uncontrolled to controlled (or vice versa). Decide between using a controlled or uncontrolled input element for the lifetime of the component.
+</Callout>
 
 Es decir, el input está pasando de ser no controlado a controlado.[Errores](https://react.dev/reference/react-dom/components/input#im-getting-an-error-a-component-is-changing-an-uncontrolled-input-to-be-controlled)
 

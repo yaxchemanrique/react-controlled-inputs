@@ -1,5 +1,5 @@
 import Header from "./layout/Header/Header";
-import Content from './layout/Content.mdx'
+import Content from "./Content.mdx";
 
 function App() {
   return (

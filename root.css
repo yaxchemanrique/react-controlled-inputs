@@ -6,6 +6,7 @@
   --clr-accent-100-100: hsl(257 100% 96% / 100%);
   --clr-accent-100-0: hsl(257 100% 96% / 0%);
   --clr-accent-400-100: hsla(260 82% 77% / 100%);
+  /* --clr-accent-400-100: #6862743e; */
   --clr-accent-950-100: hsl(0 0% 0% / 100%);
 
   --sh-identifier: #E8E8E8;
@@ -20,6 +21,8 @@
 
   --ff-body: "Manrope", sans-serif;
   --ff-code: "Red Hat Mono", monospace;
+
+  --icon-size: 24px;
 }
 
 * {

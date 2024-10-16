@@ -1,0 +1,49 @@
+.callout {
+  background-color: var(--bg);
+  box-shadow: -1px 1px 0px 0.5px var(--border);
+  position: relative;
+  padding: var(--icon-size);
+  margin-inline: var(--icon-size);
+  margin-block-start: var(--icon-size);
+  margin-block-end: 1rem;
+  border-radius: 1rem;
+}
+
+.iconWrapper {
+  background-color: var(--bg-2);
+  position: absolute;
+  transform: translate(-100%, -100%);
+  border-radius: 50%;
+  padding: 0.5rem;
+  display: grid;
+  place-content: center;
+  box-shadow: 0px 0px 0px 1.5px var(--border), 3px 4px 4px 0px var(--shadow);
+}
+
+.icon {
+  color: var(--accent);
+}
+
+.info {
+  --bg: var(--clr-accent-100-100);
+  --bg-2: var(--clr-accent-100-100);
+  --border: var(--clr-accent-400-100);
+  --shadow: #6862743e;
+  --accent: var(--clr-accent-400-100);
+}
+
+.error {
+  --bg: #F7E0DF;
+  --bg-2: #F7E0DF;
+  --border: #E68F8A;
+  --shadow: #6862743e;
+  --accent: #AF2D26;
+}
+
+.warning {
+  --bg: #f7ecdf;
+  --bg-2: #f7eadf;
+  --border: #e6cd8a;
+  --shadow: #6862743e;
+  --accent: #af8426;
+}
