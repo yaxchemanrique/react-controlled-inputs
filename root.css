@@ -34,3 +34,12 @@ img {
   display: block;
   max-width: 100%;
 }
+
+a {
+  color: inherit;
+}
+
+.wrapper {
+  max-width: 90rem;
+  margin-inline: auto;
+}
