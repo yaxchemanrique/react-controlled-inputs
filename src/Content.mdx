@@ -1,6 +1,6 @@
-import CodeBlock from '../components/CodeBlock/CodeBlock.jsx'
-import CodeLine from '../components/CodeLine/CodeLine.jsx'
-import Table from '../components/Table.jsx'
+import CodeBlock from './components/CodeBlock/CodeBlock.jsx'
+import CodeLine from './components/CodeLine/CodeLine.jsx'
+import Table from './components/Table.jsx'
 
 Qué pasa si quieres agregar una validación instantánea en tus inputs? O si quieres guardar los valores de los inputs en una variable?
 
@@ -21,7 +21,7 @@ Seguramente estás pensado:
 [comment]: <> (Incluir algo como un warning o algo asi 'container' ⬇️)
 
 Pero, y en React? Me han dicho que no debo usar querySelector (dentro de lo posible)…
-Y como le hago para “cachar” el evento onSubmit. Y en donde se supone que lo guarde? En una variable así nomás? 
+Y como le hago para “cachar” el evento  <CodeLine>onSubmit</CodeLine>. Y en donde se supone que lo guarde? En una variable así nomás? 
 
 Aquí es donde es util el hook <CodeLine>useState()</CodeLine>. De tal manera que cada vez que cambie el valor de un input se actualice la variable del estado correspondiente.
 A esto se le llama tener un input controlado (controlado por React).
@@ -45,6 +45,8 @@ Por defecto, React unicamente crea el elemento<CodeLine>{'<input />'}</CodeLine>
 Alternativamente, podémos escoger que React controle el valor del input a traves de la propiedad <CodeLine>{'value'}</CodeLine>:
 
 [comment]: <> (iframe de este input)
+
+IFRAME
 
 <CodeBlock>
 {`function App() {
