@@ -24,8 +24,12 @@
   color: var(--accent);
 }
 
+.callout code {
+  background-color: var(--clr-accent-100-100);
+}
+
 .info {
-  --bg: var(--clr-accent-100-100);
+  --bg: var(--clr-accent-100-30);
   --bg-2: var(--clr-accent-100-100);
   --border: var(--clr-accent-400-100);
   --shadow: #6862743e;
@@ -41,9 +45,9 @@
 }
 
 .warning {
-  --bg: #f7ecdf;
-  --bg-2: #f7eadf;
-  --border: #e6cd8a;
-  --shadow: #6862743e;
-  --accent: #af8426;
+  --bg: #FFF8F1;
+  --bg-2: #fff7ef;
+  --border: #ED9527;
+  --shadow: #E1D9D1;
+  --accent: #ED9527;
 }
