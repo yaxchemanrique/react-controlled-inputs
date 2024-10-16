@@ -1,0 +1,13 @@
+.codeBlock {
+  background-color: #2A2C3D;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  width: fit-content;
+  margin-block: 1rem 1.5rem;
+}
+
+.codeBlock code {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}

@@ -33,8 +33,8 @@ body {
 }
 
 code {
-  font-family: 'monaco';
-  font-size: 0.8rem;
+  font-family: var(--ff-code);
+  font-size: 0.85rem;
 }
 
 button {
@@ -55,17 +55,13 @@ a {
   color: inherit;
 }
 
+p {
+  margin-block-end: 0.5rem;
+}
+
 .wrapper {
   max-width: 60rem;
   margin-inline: auto;
-}
-
-.codeBlock {
-  background-color: #2A2C3D;
-}
-
-.codeLine {
-  background-color: #afaac0;
 }
 
 .table .row {
