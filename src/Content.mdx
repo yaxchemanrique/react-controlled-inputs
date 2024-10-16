@@ -2,6 +2,7 @@ import CodeBlock from './components/CodeBlock/CodeBlock.jsx'
 import CodeLine from './components/CodeLine/CodeLine.jsx'
 import Callout from './components/Callout/Callout.jsx'
 import Table from './components/Table.jsx'
+import IFrameContainer from './components/IFrameContainer/IFrameContainer.jsx'
 
 Qué pasa si quieres agregar una validación instantánea en tus inputs? O si quieres guardar los valores de los inputs en una variable?
 
@@ -18,8 +19,6 @@ Usando JS vainilla seguramente estás familiarizado con esta estructura:
 </CodeBlock>
 
 Seguramente estás pensado:
-
-[comment]: <> (Incluir algo como un warning o algo asi 'container' ⬇️)
 
 <Callout type='info'>
 **Pero, y en React?** Me han dicho que no debo usar <CodeLine>querySelector</CodeLine> (dentro de lo posible)…
@@ -47,7 +46,7 @@ Por defecto, React unicamente crea el elemento<CodeLine>{'<input />'}</CodeLine>
 
 Alternativamente, podémos escoger que React controle el valor del input a traves de la propiedad <CodeLine>{'value'}</CodeLine>:
 
-IFRAME
+<IFrameContainer srcCode='c6w88l' title='testing-embed'/>
 
 <CodeBlock>
 {`function App() {
