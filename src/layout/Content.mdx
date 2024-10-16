@@ -1,0 +1,497 @@
+import CodeBlock from '../components/CodeBlock/CodeBlock.jsx'
+import CodeLine from '../components/CodeLine/CodeLine.jsx'
+import Table from '../components/Table.jsx'
+
+Qué pasa si quieres agregar una validación instantánea en tus inputs? O si quieres guardar los valores de los inputs en una variable?
+
+Usando JS vainilla seguramente estás familiarizado con esta estructura:
+
+<CodeBlock>
+{`const form = document.querySelector('#my-form');
+  const nameInput = document.querySelector('input#first-name');
+  form.addEventListener('submit', (event)=> {
+    event.preventDefault();
+    const nameInputValue = nameInput.value;
+    //hacer algo con el valor obtenido del input 
+  })`}
+</CodeBlock>
+
+Seguramente estás pensado:
+
+[comment]: <> (Incluir algo como un warning o algo asi 'container' ⬇️)
+
+Pero, y en React? Me han dicho que no debo usar querySelector (dentro de lo posible)…
+Y como le hago para “cachar” el evento onSubmit. Y en donde se supone que lo guarde? En una variable así nomás? 
+
+Aquí es donde es util el hook <CodeLine>useState()</CodeLine>. De tal manera que cada vez que cambie el valor de un input se actualice la variable del estado correspondiente.
+A esto se le llama tener un input controlado (controlado por React).
+
+Por definicion, un input controlado es aquel cuyo valor siempre está vinculado (o "bindeado", si te gusta el spanglish) a una variable de estado en React. Es como tener una cuerda que conecta lo que el usuario escribe con nuestro código, y cada vez que el input cambia, la variable de estado se actualiza.
+
+## Introduccion a los Inputs Controlados
+
+Digámoslos que queremos empezar con un input cualquiera
+
+<CodeBlock>
+{`function App() {
+    return (
+        <input />
+    );
+}`}
+</CodeBlock>
+
+Por defecto, React unicamente crea el elemento<CodeLine>{'<input />'}</CodeLine> en el DOM y lo deja ser feliz (muy Bob Ross de su parte). En este punto hemos creado un elemento no controlado ya que React no sabe cual es su valor actual.
+
+Alternativamente, podémos escoger que React controle el valor del input a traves de la propiedad <CodeLine>{'value'}</CodeLine>:
+
+[comment]: <> (iframe de este input)
+
+<CodeBlock>
+{`function App() {
+    return (
+        <input value=‘Hola Mundo’ />
+    );
+}`}
+</CodeBlock>
+
+Ahora te reto a que cambies lo que está escrito dentro del input, ¡No se puede!
+
+Aunque bloquear un valor estático como este no tiene mucho sentido, lo hago en este ejemplo para ilustrar el funcionamiento de los elementos controlados: React “congela” la entrada, asegurándose de que siempre contenga el value que se le proporciona.
+
+De hecho, al hacer esto, recibimos un warning en la consola:
+
+[comment]: <> (Incluir algo como un warning o algo asi 'container' ⬇️)
+
+Warning: You provided a {'`value`'} prop to a form field without an {'`onChange`'} handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either {'`onChange`'} or {'`readOnly`'}.
+
+Parte de la funcionalidad regresa al pasar un valor dinámico como valor al atributo <CodeLine>{'value'}</CodeLine>:
+
+<CodeBlock>
+{`function App() {
+    const [name, setName] = React.useState(‘Yaxche’);  
+    return (
+        <p>Tu nombre es: {name}</p>
+        <input value={name} />
+        <button onClick={() => setName(‘’)}>Reestablecer nombre</button>
+    );
+}`}
+</CodeBlock>
+
+Con esto tenemos chance de cambiar el estado de nuestra variable a través de otros elementos (en este caso un botón)… pero seguimos sin poder escribir en el input.
+
+Esto se le conoce como vinculacion de datos “unidireccional”. El valor del input cambia cuando cambia el estado, pero el estado no cambia cuando se edita el input.
+
+IMAGEN
+
+Para completar este vinculacion de datos (data-binding) de manera bidireccional necesitamos agregar un evento <CodeLine>{'OnChange'}</CodeLine> al input:
+
+<CodeBlock>
+{`function App() {
+    const [name, setName] = React.useState(‘Yaxche’);  
+    return (
+        <p>Tu nombre es: {name}</p>
+        <input
+            value={name} 
+            onChange={(event)=> setName(event.target.value)}
+        />
+        <button onClick={() => setName(‘’)}>Reestablecer nombre</button>
+    );
+}`}
+</CodeBlock>
+
+Así, cada vez que el ususario cambie el valor del input se actualiza el valor de la variable name usando su función <CodeLine>{'setName'}</CodeLine>.
+
+¿Qué? ¿De donde salió ese <CodeLine>{'event.target.value'}</CodeLine>?
+
+<CodeLine>{'event.target'}</CodeLine> es el nodo del DOM que ha disparado el evento. En este caso el evento es haber cambiado el valor en el input y el target sería el input que estamos cambiando. Y este input tiene un atributo llamado <CodeLine>{'value'}</CodeLine>, el cual hace referencia al valor que el usuario ha escrito en él.
+
+Y con esto hemos logado tener una vinculacion bidireccional. Cada vez que cambia el valor del input actualizamos el estado y cada vez que cambia el estado, lo leemos en el atributo value
+
+Los dos elementos necesarios en la vinculacion de datos en react son:
+
+- Un input controlado que bloquea la entrada a una parte del estado de React
+
+- Un evento onChange que actualiza el estado cada vez que cambia el valor del input
+
+IMAGEN
+
+### ¿Por qué usar inputs controlados?
+
+La gran ventaja de esto es que tenemos control total sobre lo que el usuario escribe en el formulario. Esto significa que podemos hacer cosas como:
+
+- **Validar** lo que el usuario escribe mientras lo escribe.
+
+- **Resetear** el valor del input con solo cambiar el estado.
+
+- **Guardar** fácilmente los datos en algún lado, como un servidor o base de datos.
+
+Ok, y ahora cómo lo aplicamos a todos los tipos de inputs que tenemos?
+
+## Inputs de tipo texto
+<CodeLine>{'<input type=‘text’ />'}</CodeLine>
+
+En los inputs de tipo texto solo tenemos dos elementos de los cuales preocuparnos:
+
+- <CodeLine>{'value'}</CodeLine>, el cual liga la variable <CodeLine>{'name'}</CodeLine> con el atributo <CodeLine>{'value'}</CodeLine>
+
+- <CodeLine>{'onChange'}</CodeLine>, el cual toma el tributo value y actualiza el estado usando <CodeLine>{'setName'}</CodeLine>
+
+### Variantes de los inputs de tipo texto
+
+Para las vraiantes de estos inoputs, como lo son los inputs de tipo email, tel, password, y hasta textareas, podémoste seguir usando la misma estructura
+
+Por ejemplo para un número telefonico:
+
+<CodeBlock>
+{`const [phone, setPhone] = React.useState('');
+
+  <input
+    type="tel"
+    value={phone}
+    onChange={(event) => {
+      setPhone(event.target.value);
+    }}
+  />
+`}
+</CodeBlock>
+
+## Posibles Problemas
+
+Es posible que en algún momento te encuentres con este error en la consola:
+
+WARNING!
+
+⚠️ Warning: A component is changing an uncontrolled input of type text to be controlled. Input elements should not switch from uncontrolled to controlled (or vice versa). Decide between using a controlled or uncontrolled input element for the lifetime of the component.
+
+Es decir, el input está pasando de ser no controlado a controlado.[Errores](https://react.dev/reference/react-dom/components/input#im-getting-an-error-a-component-is-changing-an-uncontrolled-input-to-be-controlled)
+
+Veamos cual el el ciclo de un componente al que le pasa esto:
+
+<CodeBlock>
+{`const [phone, setPhone] = React.useState();
+
+  <input
+    type="tel"
+    value={phone}
+    onChange={(event) => {
+      setPhone(event.target.value);
+    }}
+  />
+`}
+</CodeBlock>
+
+Al usar <CodeLine>useState()</CodeLine> sin un valor inicial, el primer valor asigando a phone será undefined y por ende, al pintar este componente input se ve así: 
+
+<CodeBlock>{'<input value={undefined} />'}</CodeBlock>
+
+Lo que hace que React trate a este input como un elemento no controlado.
+
+Cuando el usuario empieza a escribir dentro del campo el valor cambia por un string/numero y por ende se convierte en un input controlado. 
+
+React espera que un elemento siempre sea controlado o siempre sea no controlado. No que cambie entre estos dos estados.
+
+Para solucionar esto solo debemos incializar nuestro estado con el valor más adecuado. En el caso del numero de telefono podémoste hacer esto:
+
+<CodeBlock>
+{`//✅ correcto
+const [phone, setPhone] = React.useState(‘’);
+
+// 🚫 Incorrecto
+const [phone, setPhone] = React.useState();
+`}
+</CodeBlock>
+
+## Inputs de tipo radio
+
+<CodeLine>{'<input type=‘radio’ />'}</CodeLine>
+
+Aquí es donde empieza a cambiar el patrón. Veamos el código:
+
+EJEMPLO DE RADIO
+
+Sí, estoy de acuerdo contigo, son muchos atributos para solo dos botones radio… Y nos vamos ir uno a uno, pero primero, veamos cómo funciona la estrategia de la vinculación de datos en este caso.
+
+En los inputs de tipo texto tenemos una relacion 1:1, cuando **UN** input cambia su correspondiente estado cambia.
+
+IMAGEN
+
+Pero cuando hablamos de botones radio, necesitamos observar si cambia alguno de los dos y el valor de ese botón sera el nuevo valor de su correscondiente estado.
+
+IMÄGEN
+
+En el código vemos que podemos obtener los siguientes valores:
+
+- <CodeLine>undefined</CodeLine> - no hay nunguna opcion selccionada
+- <CodeLine>si</CodeLine> - el valor del primer radio
+- <CodeLine>no</CodeLine> - el valor del segundo radio
+
+Por lo que el estado no puede guardar EL valor de un input porque este nunca cambia, cada radio tiene asignado su propio valor.
+
+**Entonces, qué debería de guardar el estado?** El valor del radio que está seleccionado, o en terminos de atributos, el que tenga el atributo <CodeLine>{'checked={true}'}</CodeLine>. 
+
+Esto lo podemos ver en el evento <CodeLine>{'onChange'}</CodeLine>:
+
+<CodeBlock>
+{`<input
+    type="radio"
+    name="agreed-to-terms"
+    id="agree-yes"
+    value="yes"
+    checked={hasAgreed === 'yes'}
+    onChange={(event) => {
+      setHasAgreed(
+        event.target.value
+      );
+    }}
+/>
+  <label htmlFor="agree-yes">
+    Sí
+  </label>
+`}
+</CodeBlock>
+
+Donde <CodeLine>{'setHasAgreed(e.target.value)'}</CodeLine> es lo mismo que hacer <CodeLine>{'setHasAgreed(‘yes’)'}</CodeLine>. Este es un lado de la vinculacion, actualizar el estado con los cambios en los radios.
+
+Para la segunda parte de la vinculacion necesitamos actualizar los inputs con el valor del estado, pero como ya habíamos dicho, los valores de los radios no cambian, lo que cambia es el atributo <CodeLine>{'checked'}</CodeLine>. Esto lo podemos hacer cambiando el valor de <CodeLine>{'checked'}</CodeLine> por una expresión. Si el estado es igual al valor del radio entonces el radio está seleccionado.
+
+<CodeBlock>
+{`checked={hasAgreed === 'yes'}`}
+</CodeBlock>
+
+- Para un input de tipo texto, React controla el texto que el usuario ha ingresado (especificado con <CodeLine>{'value'}</CodeLine>).
+
+- Para un input de tipo radio, React controla si el usuario ha seleccionado o no esta opción particular (especificada con <CodeLine>{'checked'}</CodeLine>).
+
+Disectemos todos los aributos que se usaron:
+
+<Table data={[
+    ["atributo", "tipo", ""],
+    [<CodeLine>{"id"}</CodeLine>, "String", "Un identificador unico para cada radio. Se usa para mejorar la accesibilidad y la usabilidad."],
+    [<CodeLine>{"name"}</CodeLine>, "String", "Un identificador del grupo de radios. Esto nos permite que el usuario solo seleccione unicamente un radio dentro del conjunto. Cada radio dentro del mismo conjunto deberá tener el mismo valor para este atributo."],
+    [<CodeLine>{"value"}</CodeLine>, "String", "Especifica el valor ques este radio representa. Esto es lo que estará guardado en el estado si este radio es seleccionado."],
+    [<CodeLine>{"checked"}</CodeLine>, "Boolean", "La comparación entre la variable de estado y el valor de este radio. Si el valor del estado es igual al valor del radio la expresion <code>{hasAgreed === ‘yes’}</code> se resolverá como true, es decir, <code>checked={true}</code>. En otro caso será <code>false</code>"],
+    [<CodeLine>{"onChange"}</CodeLine>, "Función", "La función que se ejecuta al cambiar el input seleccionado. Esta se usa para actualizar el estado."],
+  ]}/>
+
+### Proceso iteartivo
+
+Ya que los inputs requiren de multiples atributos es más facil tener un arreglo con lo que se necesita para generar los inputs e iterar sobre este arreglo para generarlos de manera dinámica.
+
+IFRAME
+
+### Posibles Errores
+
+Cuando se usa iteración, hay que tener cuidado con no re usar el nombre de la variable de estado con el nombre de la variable de iteracion.
+
+<CodeBlock>
+{`function App() {
+  const [color, setColor] = React.useState('purple')
+  
+  return (
+    <form>
+      {POSSIBLE_COLORS.map((color) => (
+        <div key={option}>
+          <input 
+            type="radio" 
+            name="possible-colors"
+            id={color}
+            value={color}
+            checked={color === color}
+            onChange={(event) => setFavoriteColor(event.target.value)}
+          />
+          <label htmlFor={option}>{option}</label>
+        </div>
+      ))}
+    </form>
+  );
+}`}
+</CodeBlock>
+
+En el método <CodeLine>{'.map()'}</CodeLine> estamos usando el parámetro <CodeLine>{'color'}</CodeLine>, pero ese nombre ya existe, es el nombre de la variable de estado.
+
+Con esto hemos perdido la posibilidad de acceder a la variable de estado desde dentro del método <CodeLine>{'.map()'}</CodeLine>. Lo cual causa problemas en la expresion usada para el atributo <CodeLine>{'checked'}</CodeLine>.
+Por eso recurrimos a un nombre más especifico para nuestra variable de estado como <CodeLine>{'favoriteColor'}</CodeLine>. 
+
+<CodeBlock>
+{`function App() {
+    const [favoriteColor, setFavoriteColor] = React.useState('purple')
+    
+    return (
+      <form>
+        {POSSIBLE_COLORS.map((option) => (
+          <div key={option}>
+            <input 
+              type="radio" 
+              name="possible-colors"
+              id={option}
+              value={option}
+              checked={option === favoriteColor}
+              onChange={(event) => setFavoriteColor(event.target.value)}
+            />
+            <label htmlFor={option}>{option}</label>
+          </div>
+        ))}
+      </form>
+    );
+}
+`}
+</CodeBlock>
+
+O usar un nombre más generico como parámetro del metodo <CodeLine>{'.map()'}</CodeLine>
+
+<CodeBlock>
+{`function App() {
+    const [color, setColor] = React.useState('purple')
+    
+    return (
+      <form>
+        {POSSIBLE_COLORS.map((option) => (
+          <div key={option}>
+            <input 
+              type="radio" 
+              name="possible-colors"
+              id={option}
+              value={option}
+              checked={option === favoriteColor}
+              onChange={(event) => setFavoriteColor(event.target.value)}
+            />
+            <label htmlFor={option}>{option}</label>
+          </div>
+        ))}
+      </form>
+    );
+}
+`}
+</CodeBlock>
+
+## Inputs de tipo checkbox
+
+Los checkbox son muy similares a los radios. Vamos a ver como se comportan estos inputs si solo tenemos un solo checkbox:
+
+<CodeBlock>
+{`import React from 'react';
+
+function App() {
+    const [optIn, setOptIn] = React.useState(false);
+
+    return (
+      <>
+        <form>
+          <input
+            type="checkbox"
+            id="opt-in-checkbox"
+            checked={optIn}
+            onChange={(event) => {
+              setOptIn(event.target.checked);
+            }}
+          />
+          <label htmlFor="opt-in-checkbox">
+            I agree to the terms
+          </label>
+        </form>
+
+        <p>
+          <strong>Opt in:</strong>{' '}
+          {optIn.toString()}
+        </p>
+      </>
+    );
+}
+
+export default App;
+`}
+</CodeBlock>
+
+Como en los radios, estos inputs son controlados a traves del atributo <CodeLine>{'checked'}</CodeLine>. La variable de estado <CodeLine>{'checked'}</CodeLine>optIn va a guardar el valor <CodeLine>{'true'}</CodeLine> si el checkbox está marcado y <CodeLine>{'false'}</CodeLine> si no lo está.
+
+### Múltiples Checkbox
+
+Las cosas se ponen un poco más complicadas si tenemos un grupo de checkbox, ya que la variable de estado debe de contener los valores de todos los checkbox que están seleccionados.
+
+IFRAME
+
+En terminos de atributos, son muy parecidos a los radios, pero la diferencia está en la variable <CodeLine>{'initialSettings'}</CodeLine>, <CodeLine>{'toppingsList'}</CodeLine>, y los eventos <CodeLine>{'onChange'}</CodeLine>.
+
+Con los radios, podemos guardar el valor seleccionado con un solo string. Pero con los checkbox, necesitamos más informacion. De ahí la necesidad de un objeto.
+
+Hay varias formas de realizar la vinculación de datos pero las más sencilla es tener un objecto en donde las “llaves” de este objetos son los valores de las opciones, y los valores para cada llave es un dato booleano especificándola si este esta seleccinado o no.
+
+<CodeBlock>
+{`const initialSettings = {
+    anchovies: false,
+    chicken: false,
+    tomatoes: false,
+}`}
+</CodeBlock>
+
+Dentro del JSX usamos un <CodeLine>{'.map()'}</CodeLine> sobre las “llaves” de este objeto y retornamos un checkbox para cada una de las llaves. En la iteración, verificamos si esta opción en particular está seleccionada y usamos ese dato para controlar el checkbox con el atributo <CodeLine>{'checked'}</CodeLine>.
+
+En la funcion ejecutada por el evento <CodeLine>{'onChange'}</CodeLine>, el valor de la propiedad asociada cambia de <CodeLine>{'false'}</CodeLine> a <CodeLine>{'true'}</CodeLine> (o viceversa). Pero como ya sabemos, el estado de  React debe de ser inmutable, esto lo resolvemos creando un objeto igual al que tenemos guardado en el estado pero con el nuevo valor booleano para la propiedad que acabamos de cambiar.
+
+Desglocemos cada uno de los atributos necesarios:
+
+<Table data={[
+    ["atributo", "tipo", ""],
+    [<CodeLine>{"id"}</CodeLine>, "String", "Un identificador unico para cada checkbox. Se usa para mejorar la accesibilidad y la usabilidad."],
+    [<CodeLine>{"value"}</CodeLine>, "String", "Especifica el valor ques este checkbox representa."],
+    [<CodeLine>{"checked"}</CodeLine>, "Boolean", "Controla si el checkbox está o no seleccionado. Se evalua si la llave que coincide con el value tiene un valor de <code>true</code> o <code>false</code>."],
+    [<CodeLine>{"onChange"}</CodeLine>, "Función", "La función que se ejecuta al cambiar el input seleccionado. Esta se usa para actualizar el estado."],
+]} />
+
+Tambien se puede usar un atributo name pero no es necesario en los checkbox.
+
+## Select
+
+Así como en los radios, la etiqueta <CodeLine>{'<select>'}</CodeLine> sólo le permite al usuario seleccionar un único elemento. 
+
+IFRAME
+
+En React, la etiqueta <CodeLine>{'<select>'}</CodeLine> es muy similar a los inputs de tipo texto. Se usan los mismos atributos <CodeLine>{'value'}</CodeLine> y <CodeLine>{'onChange'}</CodeLine>. De hecho, la funcion dentro del evento <CodeLine>{'onChange'}</CodeLine> es idéntica.
+
+### Posibles errores
+
+Al igual que en los inputs de tipo texto se deben inicializar con un valor válido. Esto quiere decir que dentro del hook <CodeLine>{'useState()'}</CodeLine> se debe de poner un valor que exista dentro de las etiquetas <CodeLine>{'<option>'}</CodeLine>
+
+<CodeBlock>
+{`// This initial value:
+const [age, setAge] = React.useState("0-18");
+
+// Must match one of the options:
+<select>
+    <option
+      value="0-18"
+    >
+      18 and under
+    </option>
+</select>`}
+</CodeBlock>
+
+Esto da paso a la posibilidad de tener un error por un typo. Por lo cual, les preferible generar las etiquetas <CodeLine>{'<option>'}</CodeLine> de manera dinámica a traves de un objeto que sea la única fuente de verdad.
+
+IFRAME
+
+En este caso la fuente de la verad es el objeto llamado <CodeLine>{'OPTIONS'}</CodeLine>.
+
+## Inputs especiales
+
+MDN enumera 22 posibles valores para la propiedad type dentro de un input. Algunos de estos son “especiales” y tienen una apariencia única:
+
+- Sliders: <CodeLine>{'<input type=“range” />'}</CodeLine>
+
+- Selectores de fecha: <CodeLine>{'<input type=“date” />'}</CodeLine>
+
+- Selectores de color: <CodeLine>{'<input type=“color” />'}</CodeLine>
+
+Afortunadamente, todos siguen el mismo patrón que los inputs de tipo texto. Se usa el atributo <CodeLine>{'value'}</CodeLine> para ligar el estado con el valor del input y el evento <CodeLine>{'onChange'}</CodeLine> para actualizar la variable de estado con los cambios que sucedan en los inputs.
+
+Este es un ejemplo con un input de tipo <CodeLine>{'color'}</CodeLine>:
+
+IFRAME
+
+Este es un ejemplo con un input de tipo <CodeLine>{'range'}</CodeLine>:
+
+IFRAME
+
+Y ahí lo tienes: un recorrido por los inputs controlados en React, desde los más simples hasta los más complejos. Entender cómo funcionan estos inputs te da muchísimo control (de ahí el nombre, duh) sobre tus formularios y datos.
+
+¿La clave? Recuerda siempre que, en React, lo que escribes en el input debe reflejarse en el estado, y cualquier cambio en el estado debe reflejarse de vuelta en el input. ¡Así es como mantenemos todo sincronizado!
