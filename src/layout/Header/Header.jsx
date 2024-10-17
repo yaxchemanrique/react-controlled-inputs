@@ -8,10 +8,10 @@ function Header() {
           <div className={styles.logoContainer}>Yaxche Manrique</div>
           <ul>
             <li>
-              <a href="https://flexbox.yaxchemanrique.com/">Flexbox</a>
+              <a href="https://flexbox.yaxchemanrique.com/" target="_blank">Flexbox</a>
             </li>
             <li>
-              <a href="https://notion.com">Más Recursos</a>
+              <a href="https://yaxchemanrique.notion.site/Links-Dashboard-f8503b5d94c544aeac3ffe4b5b6c246e" target="_blank">Más Recursos</a>
             </li>
           </ul>
         </nav>
