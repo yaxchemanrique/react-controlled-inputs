@@ -16,9 +16,9 @@ function Header() {
           </ul>
         </nav>
         <div className={styles.meshTitle}>
-					<h1>controlled inputs en react</h1>
+					<h1>inputs controlados en react</h1>
 					<div>
-						<object data="/flexbox-title.svg"></object>
+						<object data="/inputs-title.svg"></object>
 					</div>
 					<address rel="author" className={styles.authorTag}>by Yaxche Manrique</address>
 				</div>
