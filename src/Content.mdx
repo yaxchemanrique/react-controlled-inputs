@@ -3,6 +3,7 @@ import CodeLine from './components/CodeLine/CodeLine.jsx'
 import Callout from './components/Callout/Callout.jsx'
 import Table from './components/Table/Table.jsx'
 import IFrameContainer from './components/IFrameContainer/IFrameContainer.jsx'
+import ParagraphWithUl from './components/ParagraphWithUl/ParagraphWithUl.jsx'
 
 Qué pasa si quieres agregar una validación instantánea en tus inputs? O si quieres guardar los valores de los inputs en una variable?
 
@@ -85,34 +86,20 @@ Así, cada vez que el ususario cambie el valor del input se actualiza el valor d
 
 Y con esto hemos logado tener una vinculacion bidireccional. Cada vez que cambia el valor del input actualizamos el estado y cada vez que cambia el estado, lo leemos en el atributo value
 
-Los dos elementos necesarios en la vinculacion de datos en react son:
+<ParagraphWithUl paragraph='Los dos elementos necesarios en la vinculacion de datos en react son:' liArray={['Un input controlado que bloquea la entrada a una parte del estado de React', 'Un evento onChange que actualiza el estado cada vez que cambia el valor del input']} />
 
-- Un input controlado que bloquea la entrada a una parte del estado de React
-
-- Un evento onChange que actualiza el estado cada vez que cambia el valor del input
-
-IMAGEN
+![relacion bidireccional entre la variable de estado y el valor del input](/input-bidireccional.png)
 
 ### ¿Por qué usar inputs controlados?
 
-La gran ventaja de esto es que tenemos control total sobre lo que el usuario escribe en el formulario. Esto significa que podemos hacer cosas como:
-
-- **Validar** lo que el usuario escribe mientras lo escribe.
-
-- **Resetear** el valor del input con solo cambiar el estado.
-
-- **Guardar** fácilmente los datos en algún lado, como un servidor o base de datos.
+<ParagraphWithUl paragraph='La gran ventaja de esto es que tenemos control total sobre lo que el usuario escribe en el formulario. Esto significa que podemos hacer cosas como:' liArray={[<><strong>Validar</strong><span> lo que el usuario escribe mientras lo escribe.</span></>, <><strong>Resetear</strong><span> el valor del input con solo cambiar el estado.</span></>, <><strong>Guardar</strong><span> fácilmente los datos en algún lado, como un servidor o base de datos.</span></>]} />
 
 Ok, y ahora cómo lo aplicamos a todos los tipos de inputs que tenemos?
 
 ## Inputs de tipo texto
 <CodeLine>{'<input type=‘text’ />'}</CodeLine>
 
-En los inputs de tipo texto solo tenemos dos elementos de los cuales preocuparnos:
-
-- <CodeLine>{'value'}</CodeLine>, el cual liga la variable <CodeLine>{'name'}</CodeLine> con el atributo <CodeLine>{'value'}</CodeLine>
-
-- <CodeLine>{'onChange'}</CodeLine>, el cual toma el tributo value y actualiza el estado usando <CodeLine>{'setName'}</CodeLine>
+<ParagraphWithUl paragraph='En los inputs de tipo texto solo tenemos dos elementos de los cuales preocuparnos:' liArray={[<><CodeLine>{'value'}</CodeLine><span>, el cual liga la variable </span><CodeLine>{'name'}</CodeLine><span> con el atributo </span><CodeLine>{'value'}</CodeLine></>, <><CodeLine>{'onChange'}</CodeLine><span>, el cual toma el tributo value y actualiza el estado usando </span><CodeLine>{'setName'}</CodeLine></>]} />
 
 ### Variantes de los inputs de tipo texto
 
@@ -169,17 +156,13 @@ Sí, estoy de acuerdo contigo, son muchos atributos para solo dos botones radio�
 
 En los inputs de tipo texto tenemos una relacion 1:1, cuando **UN** input cambia su correspondiente estado cambia.
 
-IMAGEN
+![relacion bidireccional usando como ejemplo los inputs de texto](/input-texto.png)
 
 Pero cuando hablamos de botones radio, necesitamos observar si cambia alguno de los dos y el valor de ese botón sera el nuevo valor de su correscondiente estado.
 
-IMÄGEN
+![relacion bidireccional usando como ejemplo los inputs de tipo radio](/input-radio.png)
 
-En el código vemos que podemos obtener los siguientes valores:
-
-- <CodeLine>undefined</CodeLine> - no hay nunguna opcion selccionada
-- <CodeLine>si</CodeLine> - el valor del primer radio
-- <CodeLine>no</CodeLine> - el valor del segundo radio
+<ParagraphWithUl paragraph='En el código vemos que podemos obtener los siguientes valores:' liArray={[<><CodeLine>{'undefined'}</CodeLine><span> - no hay nunguna opcion selccionada</span></>, <><CodeLine>{'sí'}</CodeLine><span> - el valor del primer radio</span></>, , <><CodeLine>{'no'}</CodeLine><span> - el valor del segundo radio</span></>]} />
 
 Por lo que el estado no puede guardar EL valor de un input porque este nunca cambia, cada radio tiene asignado su propio valor.
 
@@ -398,13 +381,7 @@ En este caso la fuente de la verad es el arreglo llamado <CodeLine>{'OPTIONS'}</
 
 ## Inputs especiales
 
-MDN enumera 22 posibles valores para la propiedad type dentro de un input. Algunos de estos son “especiales” y tienen una apariencia única:
-
-- Sliders: <CodeLine>{'<input type=“range” />'}</CodeLine>
-
-- Selectores de fecha: <CodeLine>{'<input type=“date” />'}</CodeLine>
-
-- Selectores de color: <CodeLine>{'<input type=“color” />'}</CodeLine>
+<ParagraphWithUl paragraph='MDN enumera 22 posibles valores para la propiedad type dentro de un input. Algunos de estos son “especiales” y tienen una apariencia única:' liArray={[<><span>Sliders: </span><CodeLine>{'<input type=“range” />'}</CodeLine></>, <><span>Selectores de fecha: </span><CodeLine>{'<input type=“date” />'}</CodeLine></>, <><span>Selectores de color: </span><CodeLine>{'<input type=“color” />'}</CodeLine></>]} />
 
 Afortunadamente, todos siguen el mismo patrón que los inputs de tipo texto. Se usa el atributo <CodeLine>{'value'}</CodeLine> para ligar el estado con el valor del input y el evento <CodeLine>{'onChange'}</CodeLine> para actualizar la variable de estado con los cambios que sucedan en los inputs.
 
