@@ -1,4 +1,4 @@
-.codeEditor {
+.playgroundWrapper {
   --shadow-color: 257deg 30% 76%;
   --shadow-elevation-high: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.18),
     0.9px 1.8px 2.3px -0.4px hsl(var(--shadow-color) / 0.18),
@@ -10,17 +10,58 @@
     13.8px 27.5px 34.6px -2.5px hsl(var(--shadow-color) / 0.18);
 
   --br: 0.5rem;
-  
+
+  box-shadow: var(--shadow-elevation-high);
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-block: 1.5rem;
+}
+
+.navigationBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2A2C3D;
+  padding: 0.5rem 1rem;
+}
+
+.navigationBar p {
+  margin: 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--clr-accent-100-50);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.navigationBar button {
+  display: grid;
+  place-content: center;
+  border: 1px solid var(--clr-accent-400-100);
+  padding: 0.4rem;
+  border-radius: var(--br);
+  transition: all 300ms ease-in-out;
+}
+
+.navigationBar button:hover {
+  background-color: var(--clr-accent-100-10);
+}
+
+.navigationBar button svg {
+  transition: all 300ms ease-in-out;
+}
+
+.navigationBar button:hover svg{
+  transform: rotate(30deg);
+}
+
+.codeEditor {
   text-align: center;
   background-color: var(--clr-accent-100-100);
   display: grid;
   grid-template-columns: 3fr 2fr;
   align-items: stretch;
   aspect-ratio: 16 / 9;
-  border-radius: 1rem;
-  overflow: hidden;
-  margin-block: 1rem 1.5rem;
-  box-shadow: var(--shadow-elevation-high);
 }
 
 .preview {
