@@ -87,6 +87,10 @@
   margin-inline-end: 0.3rem;
 }
 
+.codeEditor input[type="range"] {
+  width: 100%;
+}
+
 .codeEditor button {
   font-family: inherit;
   color: #392f4b;
