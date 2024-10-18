@@ -2,8 +2,8 @@ import CodeBlock from './components/CodeBlock/CodeBlock.jsx'
 import CodeLine from './components/CodeLine/CodeLine.jsx'
 import Callout from './components/Callout/Callout.jsx'
 import Table from './components/Table/Table.jsx'
-import IFrameContainer from './components/IFrameContainer/IFrameContainer.jsx'
 import ParagraphWithUl from './components/ParagraphWithUl/ParagraphWithUl.jsx'
+import CodeEditor from './components/CodeEditor/CodeEditor.jsx'
 
 Qué pasa si quieres agregar una validación instantánea en tus inputs? O si quieres guardar los valores de los inputs en una variable?
 
@@ -47,7 +47,15 @@ Por defecto, React unicamente crea el elemento<CodeLine>{'<input />'}</CodeLine>
 
 Alternativamente, podémos escoger que React controle el valor del input a traves de la propiedad <CodeLine>{'value'}</CodeLine>:
 
-<IFrameContainer srcCode='jzwf7m' title='input-with-only-value'/>
+<CodeEditor defaultCode={
+`function App() {
+    return (
+      <input 
+        value="Hola Mundo" 
+      />
+    );
+}`
+}/>
 
 Ahora te reto a que cambies lo que está escrito dentro del input, ¡No se puede!
 
@@ -63,7 +71,29 @@ De hecho, al hacer esto, recibimos un warning en la consola:
 
 Parte de la funcionalidad regresa al pasar un valor dinámico como valor al atributo <CodeLine>{'value'}</CodeLine>:
 
-<IFrameContainer srcCode='p9spm3' title='input-with-only-value-dynamic'/>
+<CodeEditor height={450} defaultCode={
+`function App() {
+    const [name, setName]
+      = React.useState("Yaxche");
+    return (
+      <>
+        <p>
+          Tu nombre es: {name}
+        </p>
+        <input
+          value={name} 
+        />
+        <button
+          onClick={
+            () => setName("")
+          }
+        >
+          Reestablecer nombre
+        </button>
+      </>
+    );
+}`
+}/>
 
 Con esto tenemos chance de cambiar el estado de nuestra variable a través de otros elementos (en este caso un botón)… pero seguimos sin poder escribir en el input.
 
@@ -73,7 +103,31 @@ Esto se le conoce como vinculacion de datos “unidireccional”. El valor del i
 
 Para completar este vinculacion de datos (data-binding) de manera bidireccional necesitamos agregar un evento <CodeLine>{'OnChange'}</CodeLine> al input:
 
-<IFrameContainer srcCode='7l4rf3' title='input-with-only-value-dynamic-onChange'/>
+<CodeEditor height={450} defaultCode={
+`function App() {
+    const [name, setName] = React.useState("Yaxche");
+    return (
+      <>
+        <p>
+          Tu nombre es: {name}
+        </p>
+        <input
+          value={name}
+          onChange={
+            (event) => setName(event.target.value)
+          }
+        />
+        <button
+          onClick={
+            () => setName("")
+          }
+        >
+          Reestablecer nombre
+        </button>
+      </>
+    );
+}`
+}/>
 
 Así, cada vez que el ususario cambie el valor del input se actualiza el valor de la variable name usando su función <CodeLine>{'setName'}</CodeLine>.
 
@@ -107,7 +161,27 @@ Para las vraiantes de estos inoputs, como lo son los inputs de tipo email, tel, 
 
 Por ejemplo para un número telefonico:
 
-<IFrameContainer srcCode='m9k2pd' title='input-with-only-value-dynamic-onChange'/>
+<CodeEditor height={400} defaultCode={
+`function App() {
+  const [phoneNumber, setPhoneNumber] = React.useState("");
+  return (
+    <>
+      <p>
+        Tu teléfono es:
+        <strong>
+          {phoneNumber}
+        </strong>
+      </p>
+      <input
+        value={phoneNumber}
+        onChange={
+          (event) => setPhoneNumber(event.target.value)
+        }
+      />
+    </>
+  );
+}`
+}/>
 
 ## Posibles Problemas
 
@@ -121,8 +195,28 @@ Es decir, el input está pasando de ser no controlado a controlado.[Errores](htt
 
 Veamos cual el el ciclo de un componente al que le pasa esto:
 
-<IFrameContainer srcCode='sqshj2' title='input-with-only-value-dynamic-onChange'/>
+[comment]: <> (<IFrameContainer srcCode='sqshj2' title='input-with-only-value-dynamic-onChange'/>)
+<CodeEditor height={400} defaultCode={
+`function App() {
+    const [phoneNumber, setPhoneNumber]
+      = React.useState();
 
+    return (
+      <>
+        <p>
+          Tu teléfono es:
+          <strong>{phoneNumber}</strong>
+        </p>
+        <input
+          value={phoneNumber}
+          onChange={
+            (event) => setPhoneNumber(event.target.value)
+          }
+        />
+      </>
+    );
+}`
+}/>
 Al usar <CodeLine>useState()</CodeLine> sin un valor inicial, el primer valor asigando a phone será undefined y por ende, al pintar este componente input se ve así: 
 
 <CodeBlock>{'<input value={undefined} />'}</CodeBlock>
@@ -150,7 +244,54 @@ const [phone, setPhone] = React.useState();
 
 Aquí es donde empieza a cambiar el patrón. Veamos el código:
 
-<IFrameContainer height={700} srcCode='yhlv9j' title='input-radio-2options'/>
+<CodeEditor height={450} defaultCode={
+`function App() {
+  const [hasAgreed, setHasAgreed]
+    = React.useState("");
+
+  return (
+    <form>
+      <fieldset>
+        <legend>
+          Te gustaría recibir correos con
+          nuevos artíclos de este blog?
+        </legend>
+        <input
+          type="radio"
+          name="agreed-to-subcribe"
+          id="agree-yes"
+          value="yes"
+          checked={hasAgreed === "yes"}
+          onChange={(event) => {
+            setHasAgreed(event.target.value);
+          }}
+        />
+        <label
+          htmlFor="agree-yes"
+        >
+          Sí
+        </label>
+        <br />
+        <input
+          type="radio"
+          name="agreed-to-subcribe"
+          id="agree-no"
+          value="no"
+          checked={hasAgreed === "no"}
+          onChange={(event) => {
+            setHasAgreed(event.target.value);
+          }}
+        />
+        <label
+          htmlFor="agree-no"
+        >
+          No
+        </label>
+      </fieldset>
+    </form>
+  );
+}`
+}/>
 
 Sí, estoy de acuerdo contigo, son muchos atributos para solo dos botones radio… Y nos vamos ir uno a uno, pero primero, veamos cómo funciona la estrategia de la vinculación de datos en este caso.
 
@@ -216,7 +357,53 @@ Disectemos todos los aributos que se usaron:
 
 Ya que los inputs requiren de multiples atributos es más facil tener un arreglo con lo que se necesita para generar los inputs e iterar sobre este arreglo para generarlos de manera dinámica.
 
-<IFrameContainer height={700} srcCode='d7jdhy' title='input-radio-multiple-options'/>
+<CodeEditor height={600} defaultCode={
+  `function App() {
+    const [favoriteColor, setFavoriteColor]
+      = React.useState("purple");
+
+    const POSSIBLE_COLORS = [
+      "purple",
+      "hotpink",
+      "red",
+      "orange",
+      "yellow",
+      "green",
+      "blue",
+      "white",
+      "black",
+    ];
+    
+    return (
+      <form>
+        <fieldset>
+          <legend>
+            Cual es tu color favorito?
+          </legend>
+          {POSSIBLE_COLORS.map((option) => (
+            <div key={option}>
+              <input
+                type="radio"
+                name="possible-colors"
+                id={option}
+                value={option}
+                checked={option === favoriteColor}
+                onChange={
+                  (event) => setFavoriteColor(event.target.value)
+                }
+              />
+              <label
+                htmlFor={option}
+              >
+                {option}
+              </label>
+            </div>
+          ))}
+        </fieldset>
+      </form>
+    );
+  }`
+}/>
 
 ### Posibles Errores
 
@@ -307,7 +494,47 @@ O usar un nombre más generico como parámetro del metodo <CodeLine>{'.map()'}</
 
 Los checkbox son muy similares a los radios. Vamos a ver como se comportan estos inputs si solo tenemos un solo checkbox:
 
-<IFrameContainer height={700} srcCode='fwywwv' title='input-one-checkbox'/>
+<CodeEditor height={450} defaultCode={
+  `function App() {
+    const [subscribe, setSubscribe]
+      = React.useState(false);
+    return (
+      <>
+        <form>
+          <fieldset>
+            <legend>
+              Te gustaría recibir correos con
+              nuevos artíclos de este blog?
+            </legend>
+            <input
+              type="checkbox"
+              id="subscribe-checkbox"
+              checked={subscribe}
+              onChange={(event) => {
+                setSubscribe(event.target.checked);
+              }}
+            />
+            <label
+              htmlFor="subscribe-checkbox"
+            >
+              Acepto
+            </label>
+          </fieldset>
+        </form>
+        <p>
+          <strong>
+            Suscrito:
+          </strong>
+          {" "}
+          <code>
+            {subscribe.toString()}
+          </code>
+        </p>
+      </>
+    );
+  }
+  `
+}/>
 
 Como en los radios, estos inputs son controlados a traves del atributo <CodeLine>{'checked'}</CodeLine>. La variable de estado <CodeLine>{'checked'}</CodeLine>optIn va a guardar el valor <CodeLine>{'true'}</CodeLine> si el checkbox está marcado y <CodeLine>{'false'}</CodeLine> si no lo está.
 
@@ -315,7 +542,64 @@ Como en los radios, estos inputs son controlados a traves del atributo <CodeLine
 
 Las cosas se ponen un poco más complicadas si tenemos un grupo de checkbox, ya que la variable de estado debe de contener los valores de todos los checkbox que están seleccionados.
 
-<IFrameContainer height={700} srcCode='djd7tl' title='input-multiple-checkbox'/>
+<CodeEditor height={450} defaultCode={
+  `function App() {
+    const initialSettings = {
+      email: false,
+      sms: false,
+      push: false,
+    };
+    const [notifications, setNotifications]
+      = React.useState(initialSettings);
+    //Obteniendo la lista de propiedades en initialSettings
+    // ['email', 'sms', 'push']
+    const notificationTypes =
+      Object.keys(initialSettings);
+
+    return (
+      <>
+        <form>
+          <fieldset>
+            <legend>
+              Selecciona las notificaciones
+              que te gustaría recibir:
+            </legend>
+            {notificationTypes.map((option) => (
+              <div key={option}>
+                <input
+                  type="checkbox"
+                  id={option}
+                  value={option}
+                  checked={notifications[option] === true}
+                  onChange={(event) => {
+                    setNotifications({
+                      ...notifications,
+                      [option]: event.target.checked,
+                    });
+                  }}
+                />
+                <label
+                  htmlFor={option}
+                >
+                  {option}
+                </label>
+              </div>
+            ))}
+          </fieldset>
+        </form>
+        <p>
+          <strong>
+            Notificaciones:
+          </strong>
+          <br />
+          <code>
+            {JSON.stringify(notifications)}
+          </code>
+        </p>
+      </>
+    );
+}`
+}/>
 
 En terminos de atributos, son muy parecidos a los radios, pero la diferencia está en la variable <CodeLine>{'initialSettings'}</CodeLine>, <CodeLine>{'toppingsList'}</CodeLine>, y los eventos <CodeLine>{'onChange'}</CodeLine>.
 
@@ -351,9 +635,64 @@ Tambien se puede usar un atributo name pero no es necesario en los checkbox.
 
 Así como en los radios, la etiqueta <CodeLine>{'<select>'}</CodeLine> sólo le permite al usuario seleccionar un único elemento. 
 
-<IFrameContainer height={700} srcCode='rjhy3g' title='input-select' />
+[comment]: <> (<IFrameContainer height={700} srcCode='rjhy3g' title='input-select' />)
+<CodeEditor height={450} defaultCode={
+  `function App() {
+    const [paymentMethod, setPaymentMethod]
+      = React.useState("debit-card");
 
-En React, la etiqueta <CodeLine>{'<select>'}</CodeLine> es muy similar a los inputs de tipo texto. Se usan los mismos atributos <CodeLine>{'value'}</CodeLine> y <CodeLine>{'onChange'}</CodeLine>. De hecho, la funcion dentro del evento <CodeLine>{'onChange'}</CodeLine> es idéntica.
+    return (
+      <>
+        <form>
+          <label
+            htmlFor="payment-method"
+          >
+            Selecciona tu método de pago
+          </label>
+          <select
+            id="payment-method-select"
+            value={paymentMethod}
+            onChange={(event) => 
+              setPaymentMethod(event.target.value)
+            }
+          >
+            <option
+              value="credit-card"
+            >
+              Tarjeta de Crédito
+            </option>
+            <option
+              value="debit-card"
+            >
+              Tarjeta de Débito
+            </option>
+            <option
+              value="paypal"
+            >
+              Paypal
+            </option>
+            <option
+              value="stripe"
+            >
+              Stripe
+            </option>
+          </select>
+        </form>
+        <p>
+          <strong>
+            Método de Pago:
+          </strong>
+          <br />
+          <code>
+            {paymentMethod}
+          </code>
+        </p>
+      </>
+    );  
+}`
+}/>
+
+**En** React, la etiqueta <CodeLine>{'<select>'}</CodeLine> es muy similar a los inputs de tipo texto. Se usan los mismos atributos <CodeLine>{'value'}</CodeLine> y <CodeLine>{'onChange'}</CodeLine>. De hecho, la funcion dentro del evento <CodeLine>{'onChange'}</CodeLine> es idéntica.
 
 ### Posibles errores
 
@@ -375,7 +714,68 @@ const [paymentMethod, setPaymentMethod] = useState("debit-card");
 
 Esto da paso a la posibilidad de tener un error por un typo. Por lo cual, les preferible generar las etiquetas <CodeLine>{'<option>'}</CodeLine> de manera dinámica a traves de un objeto que sea la única fuente de verdad.
 
-<IFrameContainer height={700} srcCode='376w54' title='input-select-iterative' />
+<CodeEditor height={600} defaultCode={`
+function App() {
+    const OPTIONS = [
+      {
+        label: "Tarjeta de Crédito",
+        value: "credit-card",
+      },
+      {
+        label: "Tarjeta de Débito",
+        value: "debit-card",
+      },
+      {
+        label: "Paypal",
+        value: "paypal",
+      },
+      {
+        label: "Stripe",
+        value: "stripe",
+      },
+    ];
+
+    const [paymentMethod, setPaymentMethod]
+      = React.useState(OPTIONS[0].value);
+
+    return (
+      <>
+        <form>
+          <label
+            htmlFor="payment-method"
+          >
+            Selecciona tu método de pago
+          </label>
+          <select
+            id="payment-method-select"
+            value={paymentMethod}
+            onChange={(event) => 
+              setPaymentMethod(event.target.value)
+              }
+          >
+            {OPTIONS.map((option) => (
+              <option
+                key={option.value}
+                value={option.value}
+              >
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </form>
+        <p>
+          <strong>
+            Método de Pago:
+          </strong>
+          <br />
+          <code>
+            {paymentMethod}
+          </code>
+        </p>
+      </>
+    );
+}
+`} />
 
 En este caso la fuente de la verad es el arreglo llamado <CodeLine>{'OPTIONS'}</CodeLine>.
 
@@ -387,11 +787,66 @@ Afortunadamente, todos siguen el mismo patrón que los inputs de tipo texto. Se 
 
 Este es un ejemplo con un input de tipo <CodeLine>{'color'}</CodeLine>:
 
-<IFrameContainer srcCode='jl546t' title='input-color' />
+<CodeEditor height={450} defaultCode={`
+function App() {
+    const [favoriteColor, setFavoriteColor]
+      = React.useState("#FFFFFF");
+
+    return (
+      <>
+        <input
+          type="color"
+          value={favoriteColor}
+          onChange={(event) =>
+            setFavoriteColor(event.target.value)}
+        />
+        <p>
+          El código hexadecimal de tu color favorito es:
+          <br />
+          <strong
+            style={{ backgroundColor: favoriteColor }}
+          >
+            {favoriteColor}
+          </strong>
+        </p>
+      </>
+    );
+}
+`} />
 
 Este es un ejemplo con un input de tipo <CodeLine>{'range'}</CodeLine>:
 
-<IFrameContainer srcCode='grxk9m' title='input-range' />
+<CodeEditor height={450} defaultCode={`
+function App() {
+    const [volume, setVolume]
+      = React.useState(50);
+
+    return (
+      <>
+        <input
+          type="range"
+          id="volume-slider"
+          min={0}
+          max={100}
+          value={volume}
+          onChange={(event) => 
+            setVolume(event.target.value)}
+        />
+        <label>
+          <span>0</span>
+          <span>100</span>
+        </label>
+        <p>
+          El volumen es:
+          <br />
+          <strong>
+            {volume}
+          </strong>
+        </p>
+      </>
+    );
+}
+`} />
 
 ## En conclusión...
 
