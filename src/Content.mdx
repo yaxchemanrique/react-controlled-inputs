@@ -148,7 +148,6 @@ Y con esto hemos logrado tener una vinculación bidireccional. Cada vez que camb
 Ok, ¿y ahora cómo lo aplicamos a todos los tipos de inputs que existen?
 
 ## Inputs de tipo texto
-<CodeLine>{`<input type='text' />`}</CodeLine>
 
 <ParagraphWithUl paragraph='En los inputs de tipo, texto solo tenemos dos elementos de los cuales preocuparnos:' liArray={[<><CodeLine>{'value'}</CodeLine><span>, el cual liga la variable </span><CodeLine>{'name'}</CodeLine><span> con el atributo </span><CodeLine>{'value'}</CodeLine><span>.</span></>, <><CodeLine>{'onChange'}</CodeLine><span>, el cual toma el tributo value y actualiza el estado usando </span><CodeLine>{'setName'}</CodeLine><span>.</span></>]} />
 
@@ -236,8 +235,6 @@ const [phone, setPhone] = React.useState();
 </CodeBlock>
 
 ## Inputs de tipo radio
-
-<CodeLine>{`<input type='radio' />`}</CodeLine>
 
 Aquí es donde empieza a cambiar el patrón. Veamos el código:
 
