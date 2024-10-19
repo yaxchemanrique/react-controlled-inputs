@@ -103,7 +103,8 @@ Para completar esta vinculación de datos (data-binding) de manera bidireccional
 
 <CodeEditor height={450} defaultCode={
 `function App() {
-    const [name, setName] = React.useState("Yaxche");
+    const [name, setName]
+      = React.useState("Yaxche");
     return (
       <>
         <p>
@@ -111,9 +112,8 @@ Para completar esta vinculación de datos (data-binding) de manera bidireccional
         </p>
         <input
           value={name}
-          onChange={
-            (event) => setName(event.target.value)
-          }
+          onChange={(event) =>
+            setName(event.target.value)}
         />
         <button
           onClick={
@@ -159,7 +159,8 @@ Por ejemplo para un número telefónico:
 
 <CodeEditor height={400} defaultCode={
 `function App() {
-  const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [phoneNumber, setPhoneNumber]
+    = React.useState("");
   return (
     <>
       <p>

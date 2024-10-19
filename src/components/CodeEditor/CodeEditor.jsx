@@ -2,22 +2,33 @@ import { useState, useEffect } from "react";
 import { LiveProvider, LiveError, LivePreview } from "react-live";
 import Editor, { useMonaco } from "@monaco-editor/react";
 import { RefreshCw } from "feather-icons-react";
+import { Resizable } from "re-resizable";
 
 import styles from "./CodeEditor.module.css";
 
 function CodeEditor({ defaultCode, height = "auto" }) {
   const [code, setCode] = useState(defaultCode);
   const monaco = useMonaco();
+  const sidesToResize = {
+      top: false,
+      right: true,
+      bottom: false,
+      left: true,
+      topRight: false,
+      bottomRight: false,
+      bottomLeft: false,
+      topLeft: false
+  }
 
-  useEffect(()=> {
+  useEffect(() => {
     if (monaco) {
-      import('monaco-themes/themes/Dracula.json')
-        .then(data => {
-          monaco.editor.defineTheme('dracula', data);
+      import("monaco-themes/themes/Dracula.json")
+        .then((data) => {
+          monaco.editor.defineTheme("dracula", data);
         })
-        .then(_ => monaco.editor.setTheme('dracula'))
+        .then((_) => monaco.editor.setTheme("dracula"));
     }
-  }, [monaco])
+  }, [monaco]);
 
   return (
     <LiveProvider enableTypeScript={false} code={code}>
@@ -37,28 +48,41 @@ function CodeEditor({ defaultCode, height = "auto" }) {
           style={{
             height: height,
             aspectRatio: `${height !== "auto" ? "auto" : "16 / 9"}`,
+            display: "flex",
+            backgroundColor: "var(--clr-accent-100-100)"
           }}
         >
-          <Editor
-            width="100%"
-            defaultLanguage="javascript"
-            value={code.trim()}
-            theme="vs-dark"
-            options={{
-              padding: {
-                top: 16,
-              },
-              lineNumbers: "off",
-              tabSize: 2,
-              fontSize: 14,
-              minimap: {
-                enabled: false,
-              },
-              contextmenu: false,
+          <Resizable
+            style={{ display: "flex" }}
+            defaultSize={{
+              width: "60%",
+              height: "100%"
             }}
-            onChange={(value) => setCode(value)}
-          />
-          <LivePreview className={styles.preview} />
+            enable={sidesToResize}
+            minWidth={"10%"}
+            maxWidth={"90%"}
+          >
+            <Editor
+              width="100%"
+              defaultLanguage="javascript"
+              value={code.trim()}
+              theme="vs-dark"
+              options={{
+                padding: {
+                  top: 16,
+                },
+                lineNumbers: "off",
+                tabSize: 2,
+                fontSize: 14,
+                minimap: {
+                  enabled: false,
+                },
+                contextmenu: false,
+              }}
+              onChange={(value) => setCode(value)}
+            />
+          </Resizable>
+            <LivePreview style={{width: "100%"}} className={styles.preview} />
         </div>
       </div>
       <LiveError />
