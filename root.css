@@ -79,7 +79,7 @@ img {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin-block: 1em 0.5em;
+  margin-block: 1.5em 1em;
   width: fit-content;
 }
 
