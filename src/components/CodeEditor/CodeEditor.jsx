@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LiveProvider, LiveError, LivePreview } from "react-live";
-import Editor from "@monaco-editor/react";
+import Editor, { useMonaco } from "@monaco-editor/react";
 import { RefreshCw } from "feather-icons-react";
 
 import styles from "./CodeEditor.module.css";
 
 function CodeEditor({ defaultCode, height = "auto" }) {
   const [code, setCode] = useState(defaultCode);
-  
+  const monaco = useMonaco();
+
+  useEffect(()=> {
+    if (monaco) {
+      import('monaco-themes/themes/Dracula.json')
+        .then(data => {
+          monaco.editor.defineTheme('dracula', data);
+        })
+        .then(_ => monaco.editor.setTheme('dracula'))
+    }
+  }, [monaco])
+
   return (
     <LiveProvider enableTypeScript={false} code={code}>
       <div className={styles.playgroundWrapper}>

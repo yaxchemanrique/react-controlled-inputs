@@ -21,8 +21,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2A2C3D;
+  background-color: #282a36;
   padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--clr-accent-100-30);
 }
 
 .navigationBar p {
