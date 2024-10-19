@@ -5,7 +5,7 @@
   padding: var(--icon-size);
   margin-inline: var(--icon-size);
   margin-block-start: var(--icon-size);
-  margin-block-end: 1rem;
+  margin-block-end: 2rem;
   border-radius: 1rem;
 }
 
