@@ -14,7 +14,7 @@
   box-shadow: var(--shadow-elevation-high);
   border-radius: 1rem;
   overflow: hidden;
-  margin-block: 1.5rem;
+  margin-block: 1.5rem 3rem;
 }
 
 .navigationBar {
