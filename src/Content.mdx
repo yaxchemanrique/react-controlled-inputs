@@ -306,7 +306,7 @@ Por lo que el estado no puede guardar **EL** valor de un input porque este nunca
 
 Esto lo podemos ver en el evento <CodeLine>{'onChange'}</CodeLine>:
 
-<CodeBlock>
+<CodeBlock highlightedLines={[7, 8, 9, 10, 11]}>
 {`<input
     type="radio"
     name="agreed-to-terms"
@@ -404,7 +404,7 @@ Ya que los inputs requeiren de multiples atributos es más fácil tener un arreg
 
 Cuando se usa iteración, hay que tener cuidado con no reutilizar el nombre de la variable de estado con el nombre de la variable de iteración.
 
-<CodeBlock>
+<CodeBlock highlightedLines={[13]}>
 {`function App() {
     const [color, setColor] = React.useState('purple')
     
@@ -432,7 +432,7 @@ En el método <CodeLine>{'.map()'}</CodeLine>, estamos usando el parámetro <Cod
 
 Con esto, hemos perdido la posibilidad de acceder a la variable de estado desde dentro del método <CodeLine>{'.map()'}</CodeLine>, lo cual causa problemas en la expresión usada para el atributo <CodeLine>{'checked'}</CodeLine>. Por eso recurrimos a un nombre más específico para nuestra variable de estado, como <CodeLine>{'favoriteColor'}</CodeLine>. 
 
-<CodeBlock>
+<CodeBlock highlightedLines={[2, 13]}>
 {`function App() {
     const [favoriteColor, setFavoriteColor] = React.useState('purple')
     
@@ -459,7 +459,7 @@ Con esto, hemos perdido la posibilidad de acceder a la variable de estado desde 
 
 O podemos usar un nombre más genérico como parámetro del método <CodeLine>{'.map()'}</CodeLine>
 
-<CodeBlock>
+<CodeBlock highlightedLines={[2, 6, 13]}>
 {`function App() {
     const [color, setColor] = React.useState('purple')
     
@@ -691,7 +691,7 @@ En React, la etiqueta <CodeLine>{'<select>'}</CodeLine> es muy similar a los inp
 
 Al igual que en los inputs de tipo texto, se deben inicializar con un valor válido. Esto quiere decir que dentro del hook <CodeLine>{'useState()'}</CodeLine> se debe poner un valor que exista dentro de las etiquetas <CodeLine>{'<option>'}</CodeLine>.
 
-<CodeBlock>
+<CodeBlock  highlightedLines={[2, 7]}>
 {`// El valor inicial:
 const [paymentMethod, setPaymentMethod] = useState("debit-card");
 

@@ -1,9 +1,9 @@
 .codeBlock {
   background-color: #2A2C3D;
-  padding: 1.5rem;
   border-radius: 1rem;
   width: fit-content;
   margin-block: 1rem 1.5rem;
+  padding-block: 1.5rem;
   box-shadow: var(--shadow-elevation-high);
 }
 
@@ -11,4 +11,14 @@
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+}
+
+.sh__line {
+  padding-inline: 1.5rem;
+}
+
+.highlight {
+  background-color: var(--clr-accent-100-10);
+  border-left: 3px solid var(--clr-accent-400-100);
+  padding-block: 0.2rem;
 }
