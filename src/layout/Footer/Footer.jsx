@@ -15,12 +15,12 @@ function Footer() {
         </div>
         <ul>
           <li>
-            <a href="#">
+            <a href="https://github.com/yaxchemanrique/" target="_blank">
               <Github size={36} color="white" />
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="https://www.instagram.com/yaxchemanrique/" target="_blank">
               <Instagram size={36} color="white" />
             </a>
           </li>
