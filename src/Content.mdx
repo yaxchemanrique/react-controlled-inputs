@@ -404,23 +404,23 @@ Ya que los inputs requeiren de multiples atributos es más fácil tener un arreg
 
 Cuando se usa iteración, hay que tener cuidado con no reutilizar el nombre de la variable de estado con el nombre de la variable de iteración.
 
-<CodeBlock highlightedLines={[13]}>
+<CodeBlock highlightedLines={[2, 6, 13]}>
 {`function App() {
     const [color, setColor] = React.useState('purple')
     
     return (
       <form>
         {POSSIBLE_COLORS.map((color) => (
-          <div key={option}>
+          <div key={color}>
             <input 
               type="radio" 
               name="possible-colors"
               id={color}
               value={color}
               checked={color  = = = color}
-              onChange={(event)  => setFavoriteColor(event.target.value)}
+              onChange={(event)  => setColor(event.target.value)}
             />
-            <label htmlFor={option}> {option} </label>
+            <label htmlFor={color}> {color} </label>
           </div>
         ))}
       </form>
@@ -438,17 +438,17 @@ Con esto, hemos perdido la posibilidad de acceder a la variable de estado desde 
     
     return (
       <form>
-        {POSSIBLE_COLORS.map((option) => (
-          <div key={option}>
+        {POSSIBLE_COLORS.map((color) => (
+          <div key={color}>
             <input 
               type="radio" 
               name="possible-colors"
-              id={option}
-              value={option}
-              checked={option  = = = favoriteColor}
+              id={color}
+              value={color}
+              checked={color  = = = favoriteColor}
               onChange={(event)  => setFavoriteColor(event.target.value)}
             />
-            <label htmlFor={option}> {option} </label>
+            <label htmlFor={color}> {color} </label>
           </div>
         ))}
       </form>
@@ -472,8 +472,8 @@ O podemos usar un nombre más genérico como parámetro del método <CodeLine>{'
               name="possible-colors"
               id={option}
               value={option}
-              checked={option === favoriteColor}
-              onChange={(event) => setFavoriteColor(event.target.value)}
+              checked={option === color}
+              onChange={(event) => setColor(event.target.value)}
             />
             <label htmlFor={option}>{option}</label>
           </div>
