@@ -45,7 +45,7 @@ Digamos que queremos empezar con un input cualquiera:
 
 Por defecto, React únicamente crea el elemento <CodeLine>{'<input />'}</CodeLine> en el DOM y lo deja ser feliz (muy Bob Ross de su parte). En este punto hemos creado un elemento **no controlado** ya que React no sabe cual es su valor actual.
 
-Alternativamente, podémos escoger que React controle el valor del input a traves de la propiedad <CodeLine>{'value'}</CodeLine>:
+Alternativamente, podemos escoger que React controle el valor del input a traves de la propiedad <CodeLine>{'value'}</CodeLine>:
 
 <CodeEditor defaultCode={
 `function App() {
@@ -153,14 +153,14 @@ Ok, ¿y ahora cómo lo aplicamos a todos los tipos de inputs que existen?
 
 ### Variantes de los inputs de tipo texto
 
-Para las vraiantes de estos inputs, como lo son los inputs de tipo <CodeLine>email</CodeLine>, <CodeLine>tel</CodeLine>, <CodeLine>password</CodeLine>, y hasta <CodeLine>textareas</CodeLine>, podemos seguir usando la misma estructura.
+Para las variantes de estos inputs, como lo son los inputs de tipo <CodeLine>email</CodeLine>, <CodeLine>tel</CodeLine>, <CodeLine>password</CodeLine>, y hasta <CodeLine>textareas</CodeLine>, podemos seguir usando la misma estructura.
 
 Por ejemplo para un número telefónico:
 
 <CodeEditor height={400} defaultCode={
 `function App() {
   const [phoneNumber, setPhoneNumber]
-    = React.useState("");
+    = React.useState('');
   return (
     <>
       <p>
@@ -327,7 +327,7 @@ Esto lo podemos ver en el evento <CodeLine>{'onChange'}</CodeLine>:
 
 Donde <CodeLine>{`setHasAgreed(e.target.value)`}</CodeLine> es lo mismo que hacer <CodeLine>{`setHasAgreed('yes')`}</CodeLine>. Este es un lado de la vinculación: actualizar el estado con los cambios en los radios.
 
-Para la segunda parte de la vinculación necesitamos actualizar los inputs con el valor del estado, pero como ya habíamos dicho, los valores de los radios no cambian; lo que cambia es el atributo <CodeLine>{'checked'}</CodeLine>. Esto lo podemos hacer cambiando el valor de <CodeLine>{'checked'}</CodeLine> por una expresión. Si el estado es igual al valor del radio entonces el radio, entonces el radio está seleccionado.
+Para la segunda parte de la vinculación necesitamos actualizar los inputs con el valor del estado, pero como ya habíamos dicho, los valores de los radios no cambian; lo que cambia es el atributo <CodeLine>{'checked'}</CodeLine>. Esto lo podemos hacer cambiando el valor de <CodeLine>{'checked'}</CodeLine> por una expresión. Si el estado es igual al valor del radio, el radio está seleccionado.
 
 <CodeBlock>
 {`checked={hasAgreed === 'yes'}`}
@@ -530,7 +530,7 @@ Los checkboxes son muy similares a los radios. Vamos a ver cómo se comportan es
   `
 }/>
 
-Al igual que en los radios, estos inputs son controlados a través del atributo <CodeLine>{'checked'}</CodeLine>. La variable de estado <CodeLine>{'subscribe'}</CodeLine> guardará el valor <CodeLine>{'true'}</CodeLine> si el checkbox está marcado y <CodeLine>{'false'}</CodeLine> si no lo está.
+Al igual que en los radios, estos inputs son controlados a través del atributo <CodeLine>{'checked'}</CodeLine>. La variable de estado <CodeLine>{'subscribe'}</CodeLine> guardará el valor <CodeLine>{'true'}</CodeLine> si el checkbox está selccionado y <CodeLine>{'false'}</CodeLine> si no lo está.
 
 ### Múltiples Checkbox
 
@@ -595,7 +595,7 @@ Las cosas se ponen un poco más complicadas si tenemos un grupo de checkboxes, y
 }`
 }/>
 
-En términos de atributos, son muy parecidos a los radios, pero la diferencia está en la variable <CodeLine>{'initialSettings'}</CodeLine>, <CodeLine>{'notificationTypes'}</CodeLine>, y los eventos <CodeLine>{'onChange'}</CodeLine>.
+En términos de atributos, son muy parecidos a los radios, pero la diferencia está en las variables <CodeLine>{'initialSettings'}</CodeLine>, <CodeLine>{'notificationTypes'}</CodeLine>, y los eventos <CodeLine>{'onChange'}</CodeLine>.
 
 Con los radios, podemos guardar el valor seleccionado con un solo string. Pero con los checkboxes, necesitamos más información. De ahí la necesidad de un objeto.
 
@@ -603,9 +603,9 @@ Hay varias formas de realizar la vinculación de datos, pero las más sencilla e
 
 <CodeBlock>
 {`const initialSettings = {
-    anchovies: false,
-    chicken: false,
-    tomatoes: false,
+    email: false,
+    sms: false,
+    push: false,
 }`}
 </CodeBlock>
 
@@ -843,6 +843,6 @@ function App() {
 
 ## En conclusión...
 
-Ahí lo tienes: un recorrido por los inputs controlados en React, desde los más simples hasta los más complejos. Entender cómo funcionan estos inputs te da muchísimo control (de ahí el nombre, duh) sobre tus formularios y datos.
+Ahí lo tienes: un recorrido por los inputs controlados en React, desde los más simples hasta los más complejos. Entender cómo funcionan estos inputs te da muchísimo control (de ahí el nombre 💁‍♀️) sobre tus formularios y datos.
 
 ¿La clave? Recuerda siempre que, en React, lo que escribes en el input debe reflejarse en el estado, y cualquier cambio en el estado debe reflejarse de vuelta en el input. ¡Así es como mantenemos todo sincronizado!
